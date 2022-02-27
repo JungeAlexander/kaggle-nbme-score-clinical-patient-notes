@@ -5,7 +5,8 @@ description = ""
 authors = ["Alexander Junge <alexander.junge@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.7,<3.11"
+tensorflow = "^2.8.0"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.9.0"
