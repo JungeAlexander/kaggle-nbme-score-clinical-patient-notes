@@ -23,7 +23,7 @@ commands:
   - name: "preprocess"
     help: "Convert the data to spaCy's binary format"
     script:
-      - "python scripts/preprocess.py input/nbme-score-clinical-patient-notes corpus"
+      - "python scripts/preprocess.py input/nbme-score-clinical-patient-notes corpus ${vars.case_num} ${vars.feature_num}"
     deps:
       - "input/nbme-score-clinical-patient-notes/${vars.train_splits}"
       - "scripts/preprocess.py"
