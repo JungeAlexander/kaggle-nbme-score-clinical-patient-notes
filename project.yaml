@@ -1,3 +1,33 @@
 title: "NBME - Score Clinical Patient Notes"
 description: >
   TODO.
+
+vars:
+  train_splits: "train_split.json.gz"
+  case_num: 0
+  feature_num: 0
+  train: "train-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
+  dev: "dev-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
+  test: "test-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
+
+directories: ["input", "scripts", "corpus"]
+
+assets:
+  - dest: "input/nbme-score-clinical-patient-notes/${vars.train_splits}"
+
+workflows:
+  all:
+    - preprocess
+
+commands:
+  - name: "preprocess"
+    help: "Convert the data to spaCy's binary format"
+    script:
+      - "python scripts/preprocess.py input/nbme-score-clinical-patient-notes corpus"
+    deps:
+      - "input/nbme-score-clinical-patient-notes/${vars.train_splits}"
+      - "scripts/preprocess.py"
+    outputs:
+      - "corpus/${vars.train}.spacy"
+      - "corpus/${vars.dev}.spacy"
+      - "corpus/${vars.test}.spacy"
