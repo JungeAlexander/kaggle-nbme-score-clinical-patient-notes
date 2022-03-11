@@ -10,6 +10,8 @@ tensorflow = "^2.8.0"
 scikit-learn = "^1.0.2"
 pandas = "^1.3"
 spacy = "^3.2.3"
+wasabi = "^0.9.0"
+typer = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.9.0"
