@@ -1,24 +1,29 @@
 import gzip
 import re
+import random
 from pathlib import Path
 
 import pandas as pd
 import spacy
 from spacy.tokens import DocBin
+import typer
+from wasabi import msg
 
 
-# TODO read from CLI
-input_dir = None
-output_dir = None
-case_num = 0
-feature_num = 0
+random.seed(42)
 
 
-nlp = spacy.blank("en")
+def main(
+    input_dir: Path = typer.Argument(..., exists=True),
+    output_dir: Path = typer.Argument(...),
+    case_num: int = typer.Argument(0),
+    feature_num: int = typer.Argument(0),
+    train_json_file_name: str = "train_split.json.gz",
+):
+    nlp = spacy.blank("en")
 
-
-with gzip.open(input_dir / "train_split.json.gz", "r") as fin:
-    df = pd.read_json(fin)
+    with gzip.open(input_dir / train_json_file_name, "r") as fin:
+        df = pd.read_json(fin)
 
 
 def process_spans(span_str: str):
@@ -119,3 +124,6 @@ dev_db.to_disk(output_dir / f"dev-case_num-{case_num}-feature_num-{feature_num}.
 test_db.to_disk(
     output_dir / f"test-case_num-{case_num}-feature_num-{feature_num}.spacy"
 )
+
+if __name__ == "__main__":
+    typer.run(main)
