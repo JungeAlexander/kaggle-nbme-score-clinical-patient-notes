@@ -33,3 +33,10 @@ python -m ipykernel install --user --name 20220211-nbme-score-clinical-patient-n
 ```
 [3] ColabCode(port=10000, password=PASSWORD, authtoken=AUTHTOKEN) 
 ```
+
+## Spacy project
+
+
+```shell
+spacy project run preprocess
+```
