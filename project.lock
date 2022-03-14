@@ -1,0 +1,19 @@
+preprocess:
+  cmd: python -m spacy run preprocess
+  script:
+    - python scripts/preprocess.py input/nbme-score-clinical-patient-notes corpus
+      0 0
+  deps:
+    - path: input/nbme-score-clinical-patient-notes/train_split.json.gz
+      md5: 37b4ef0a96a04634f50799fb7e64f609
+    - path: scripts/preprocess.py
+      md5: 843939721a881dd133c82099677ae789
+  outs:
+    - path: corpus/train-case_num-0-feature_num-0.spacy
+      md5: e8208417f3088e270934a2b8c2200a65
+    - path: corpus/dev-case_num-0-feature_num-0.spacy
+      md5: 66a74564788aa37d86adfc0cfd9bbb01
+    - path: corpus/test-case_num-0-feature_num-0.spacy
+      md5: bb15c856c1bac52f640f213f9ce2960c
+  spacy_version: 3.2.3
+  spacy_git_version: 99425de36
