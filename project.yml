@@ -10,7 +10,7 @@ vars:
   dev: "dev-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
   test: "test-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
 
-directories: ["input", "scripts", "corpus"]
+directories: ["configs", "corpus", "input", "scripts", "training"]
 
 assets:
   - dest: "input/nbme-score-clinical-patient-notes/${vars.train_splits}"
@@ -18,6 +18,7 @@ assets:
 workflows:
   all:
     - preprocess
+    - train
 
 commands:
   - name: "preprocess"
@@ -31,3 +32,13 @@ commands:
       - "corpus/${vars.train}.spacy"
       - "corpus/${vars.dev}.spacy"
       - "corpus/${vars.test}.spacy"
+
+  - name: "train"
+    help: "Train a custom NER model"
+    script:
+      - "python -m spacy train configs/${vars.config} --output training/ --paths.train corpus/${vars.train}.spacy --paths.dev corpus/${vars.dev}.spacy --code scripts/custom_functions.py"
+    deps:
+      - "corpus/${vars.train}.spacy"
+      - "corpus/${vars.dev}.spacy"
+    outputs:
+      - "training/model-best"
