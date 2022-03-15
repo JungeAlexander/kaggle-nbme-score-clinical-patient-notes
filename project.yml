@@ -9,6 +9,7 @@ vars:
   train: "train-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
   dev: "dev-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
   test: "test-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
+  config: "config.cfg"
 
 directories: ["configs", "corpus", "input", "scripts", "training"]
 
@@ -18,6 +19,7 @@ assets:
 workflows:
   all:
     - preprocess
+    - debug
     - train
 
 commands:
@@ -33,10 +35,19 @@ commands:
       - "corpus/${vars.dev}.spacy"
       - "corpus/${vars.test}.spacy"
 
+  - name: "debug"
+    help: "Debug the data"
+    deps:
+      - "corpus/${vars.train}.spacy"
+      - "corpus/${vars.dev}.spacy"
+      - "corpus/${vars.test}.spacy"
+    script:
+      - python -m spacy debug data configs/${vars.config}  --paths.train corpus/${vars.train}.spacy --paths.dev corpus/${vars.dev}.spacy --paths.test corpus/${vars.test}.spacy
+
   - name: "train"
     help: "Train a custom NER model"
     script:
-      - "python -m spacy train configs/${vars.config} --output training/ --paths.train corpus/${vars.train}.spacy --paths.dev corpus/${vars.dev}.spacy --code scripts/custom_functions.py"
+      - "python -m spacy train configs/${vars.config} --output training/ --paths.train corpus/${vars.train}.spacy --paths.dev corpus/${vars.dev}.spacy # --code scripts/custom_functions.py"
     deps:
       - "corpus/${vars.train}.spacy"
       - "corpus/${vars.dev}.spacy"

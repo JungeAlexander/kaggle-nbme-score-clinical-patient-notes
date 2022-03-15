@@ -20,6 +20,8 @@ Commands are only re-run if their inputs have changed.
 | Command | Description |
 | --- | --- |
 | `preprocess` | Convert the data to spaCy's binary format |
+| `debug` | Debug the data |
+| `train` | Train a custom NER model |
 
 ### ⏭ Workflows
 
@@ -30,7 +32,7 @@ inputs have changed.
 
 | Workflow | Steps |
 | --- | --- |
-| `all` | `preprocess` |
+| `all` | `preprocess` &rarr; `debug` &rarr; `train` |
 
 ### 🗂 Assets
 
