@@ -47,3 +47,16 @@ evaluate:
       md5: 87ae9ecb25991452b1c3b96e08823e2b
   spacy_version: 3.2.3
   spacy_git_version: 99425de36
+package:
+  cmd: python -m spacy run package
+  script:
+    - python -m spacy package training/model-best packages --name nbme_score_clinical_patient_notes
+      --version 0.0.0 --force
+  deps:
+    - path: training/model-best
+      md5: 8e9275a1de0f9760f9e647478c5aa0fc
+  outs:
+    - path: packages/en_nbme_score_clinical_patient_notes-0.0.0/dist/en_nbme_score_clinical_patient_notes-0.0.0.tar.gz
+      md5: 2c0cf42b92796f71fa46d08c999fa545
+  spacy_version: 3.2.3
+  spacy_git_version: 99425de36

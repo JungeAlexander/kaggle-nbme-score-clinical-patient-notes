@@ -10,8 +10,10 @@ vars:
   dev: "dev-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
   test: "test-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
   config: "config.cfg"
+  name: "nbme_score_clinical_patient_notes"
+  version: "0.0.0"
 
-directories: ["configs", "corpus", "input", "scripts", "training"]
+directories: ["configs", "corpus", "input", "packages", "scripts", "training"]
 
 assets:
   - dest: "input/nbme-score-clinical-patient-notes/${vars.train_splits}"
@@ -64,3 +66,12 @@ commands:
       - "training/model-best"
     outputs:
       - "training/metrics.json"
+
+  - name: package
+    help: "Package the trained model so it can be installed"
+    script:
+      - "python -m spacy package training/model-best packages --name ${vars.name} --version ${vars.version} --force" # --code scripts/custom_functions.py"
+    deps:
+      - "training/model-best"
+    outputs_no_cache:
+      - "packages/en_${vars.name}-${vars.version}/dist/en_${vars.name}-${vars.version}.tar.gz"
