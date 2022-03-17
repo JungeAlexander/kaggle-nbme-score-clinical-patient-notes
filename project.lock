@@ -17,3 +17,18 @@ preprocess:
       md5: bb15c856c1bac52f640f213f9ce2960c
   spacy_version: 3.2.3
   spacy_git_version: 99425de36
+train:
+  cmd: python -m spacy run train
+  script:
+    - python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train-case_num-0-feature_num-0.spacy
+      --paths.dev corpus/dev-case_num-0-feature_num-0.spacy
+  deps:
+    - path: corpus/train-case_num-0-feature_num-0.spacy
+      md5: e8208417f3088e270934a2b8c2200a65
+    - path: corpus/dev-case_num-0-feature_num-0.spacy
+      md5: 66a74564788aa37d86adfc0cfd9bbb01
+  outs:
+    - path: training/model-best
+      md5: 8e9275a1de0f9760f9e647478c5aa0fc
+  spacy_version: 3.2.3
+  spacy_git_version: 99425de36
