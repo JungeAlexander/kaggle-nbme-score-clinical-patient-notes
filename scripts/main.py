@@ -13,7 +13,7 @@ class ModelName(str, Enum):
     en_nbme_score_clinical_patient_notes = "en_nbme_score_clinical_patient_notes"
 
 
-DEFAULT_MODEL = ModelName.en_core_web_sm
+DEFAULT_MODEL = ModelName.en_nbme_score_clinical_patient_notes
 MODEL_NAMES = [model.value for model in ModelName]
 MODELS = {name: spacy.load(name) for name in MODEL_NAMES}
 print(f"Loaded {len(MODEL_NAMES)} models: {MODEL_NAMES}")
