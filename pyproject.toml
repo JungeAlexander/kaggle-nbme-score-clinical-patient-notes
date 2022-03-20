@@ -13,6 +13,7 @@ spacy = "^3.2.3"
 wasabi = "^0.9.0"
 typer = "^0.4.0"
 fastapi = "^0.75.0"
+uvicorn = "^0.17.6"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.9.0"
