@@ -60,3 +60,11 @@ package:
       md5: 2c0cf42b92796f71fa46d08c999fa545
   spacy_version: 3.2.3
   spacy_git_version: 99425de36
+install:
+  cmd: python -m spacy run install
+  script:
+    - pip install packages/en_nbme_score_clinical_patient_notes-0.0.0/dist/en_nbme_score_clinical_patient_notes-0.0.0.tar.gz
+  deps: []
+  outs: []
+  spacy_version: 3.2.3
+  spacy_git_version: 99425de36
