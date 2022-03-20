@@ -1,6 +1,9 @@
 title: "NBME - Score Clinical Patient Notes"
 description: >
-  TODO.
+  Exploring spacy's [project](https://spacy.io/usage/projects) mechanism using data from
+  Kaggle's [NBME - Score Clinical Patient Notes](https://www.kaggle.com/c/nbme-score-clinical-patient-notes/overview)
+  which is treated as a named entity recognition (NER) problem here.
+  The purpose of this repository is not to achieve NER performance but rather play with defining different spacy workflows.
 
 vars:
   train_splits: "train_split.json.gz"
@@ -23,7 +26,7 @@ assets:
 workflows:
   all:
     - preprocess
-    # - debug
+    - debug
     - train
     - evaluate
   deploy:

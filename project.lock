@@ -68,3 +68,18 @@ install:
   outs: []
   spacy_version: 3.2.3
   spacy_git_version: 99425de36
+debug:
+  cmd: python -m spacy run debug
+  script:
+    - python -m spacy debug data configs/config.cfg  --paths.train corpus/train-case_num--1-feature_num--1.spacy
+      --paths.dev corpus/dev-case_num--1-feature_num--1.spacy --paths.test corpus/test-case_num--1-feature_num--1.spacy
+  deps:
+    - path: corpus/train-case_num--1-feature_num--1.spacy
+      md5: cf39a42f43dc42bf1299825656bb07f7
+    - path: corpus/dev-case_num--1-feature_num--1.spacy
+      md5: 5545c29be5984a88e6b2b4820d84dd11
+    - path: corpus/test-case_num--1-feature_num--1.spacy
+      md5: 3383b09327662e1d43a2159d04910e22
+  outs: []
+  spacy_version: 3.2.3
+  spacy_git_version: 99425de36

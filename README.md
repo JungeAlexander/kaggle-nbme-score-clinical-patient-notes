@@ -2,7 +2,7 @@
 
 # 🪐 spaCy Project: NBME - Score Clinical Patient Notes
 
-TODO.
+Exploring spacy's [project](https://spacy.io/usage/projects) mechanism using data from Kaggle's [NBME - Score Clinical Patient Notes](https://www.kaggle.com/c/nbme-score-clinical-patient-notes/overview) which is treated as a named entity recognition (NER) problem here. The purpose of this repository is not to achieve NER performance but rather play with defining different spacy workflows.
 
 
 ## 📋 project.yml
@@ -24,7 +24,8 @@ Commands are only re-run if their inputs have changed.
 | `train` | Train a custom NER model |
 | `evaluate` | Evaluate the custom model and export metrics |
 | `package` | Package the trained model so it can be installed |
-| `serve` | Serve the models via a FastAPI REST API using the given host and port |
+| `install` | Install model |
+| `serve` | Serve the models via a FastAPI REST API |
 
 ### ⏭ Workflows
 
@@ -35,7 +36,8 @@ inputs have changed.
 
 | Workflow | Steps |
 | --- | --- |
-| `all` | `preprocess` &rarr; `train` &rarr; `evaluate` |
+| `all` | `preprocess` &rarr; `debug` &rarr; `train` &rarr; `evaluate` |
+| `deploy` | `package` &rarr; `install` &rarr; `serve` |
 
 ### 🗂 Assets
 
