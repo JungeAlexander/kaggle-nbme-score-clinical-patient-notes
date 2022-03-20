@@ -51,7 +51,11 @@ def df_to_doc_list(in_df: pd.DataFrame):
                 if char_span is None:
                     raise ValueError()
                 ents.append(char_span)
-        doc.ents = ents
+        try:
+            doc.ents = ents
+        except ValueError:
+            msg.warn(f"Skipping id {row.id} since entity annotation is invalid.")
+            continue
         doc_list.append(doc)
     return doc_list
 
@@ -59,8 +63,8 @@ def df_to_doc_list(in_df: pd.DataFrame):
 def main(
     input_dir: Path = typer.Argument(..., exists=True),
     output_dir: Path = typer.Argument(...),
-    case_num: int = typer.Argument(0, help="The case_num to use, set -1 for all."),
-    feature_num: int = typer.Argument(0, help="The feature_num to use, set -1 for all."),
+    case_num: int = typer.Option(0, help="The case_num to use, set -1 for all."),
+    feature_num: int = typer.Option(0, help="The feature_num to use, set -1 for all."),
     train_json_file_name: str = "train_split.json.gz",
 ):
     msg.info("Loading raw data.")
