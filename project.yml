@@ -4,8 +4,8 @@ description: >
 
 vars:
   train_splits: "train_split.json.gz"
-  case_num: 0
-  feature_num: 0
+  case_num: -1
+  feature_num: -1
   train: "train-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
   dev: "dev-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
   test: "test-case_num-${vars.case_num}-feature_num-${vars.feature_num}"
@@ -21,7 +21,7 @@ assets:
 workflows:
   all:
     - preprocess
-    - debug
+    # - debug
     - train
     - evaluate
 
@@ -75,3 +75,11 @@ commands:
       - "training/model-best"
     outputs_no_cache:
       - "packages/en_${vars.name}-${vars.version}/dist/en_${vars.name}-${vars.version}.tar.gz"
+
+  - name: "serve"
+    help: "Serve the models via a FastAPI REST API using the given host and port"
+    script:
+      - "uvicorn scripts.main:app --reload --host 127.0.0.1 --port 5000"
+    deps:
+      - "scripts/main.py"
+    no_skip: true
