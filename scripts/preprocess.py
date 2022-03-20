@@ -59,8 +59,8 @@ def df_to_doc_list(in_df: pd.DataFrame):
 def main(
     input_dir: Path = typer.Argument(..., exists=True),
     output_dir: Path = typer.Argument(...),
-    case_num: int = typer.Argument(0),
-    feature_num: int = typer.Argument(0),
+    case_num: int = typer.Argument(0, help="The case_num to use, set -1 for all."),
+    feature_num: int = typer.Argument(0, help="The feature_num to use, set -1 for all."),
     train_json_file_name: str = "train_split.json.gz",
 ):
     msg.info("Loading raw data.")
@@ -83,26 +83,24 @@ def main(
                 msg.warn(f"Actual: {actual}")
                 msg.warn("")
 
-    sub_df = df.loc[(df.case_num == case_num) & (df.feature_num == feature_num), :]
+    if case_num != -1:
+        df = df.loc[(df.case_num == case_num), :]
 
-    feature_text = sub_df.feature_text.unique()
-    assert len(feature_text) == 1
-    feature_text[0]
+    if feature_num != -1:
+        df = df.loc[(df.feature_num == feature_num), :]
 
-    assert len(sub_df.pn_num.unique()) == len(sub_df)
-
-    train_df = sub_df.loc[
-        sub_df.fold.isin([0, 1, 2]),
+    train_df = df.loc[
+        df.fold.isin([0, 1, 2]),
     ]
     train_doc_list = df_to_doc_list(train_df)
 
-    dev_df = sub_df.loc[
-        sub_df.fold.isin([3]),
+    dev_df = df.loc[
+        df.fold.isin([3]),
     ]
     dev_doc_list = df_to_doc_list(dev_df)
 
-    test_df = sub_df.loc[
-        sub_df.fold.isin([4]),
+    test_df = df.loc[
+        df.fold.isin([4]),
     ]
     test_doc_list = df_to_doc_list(test_df)
 
