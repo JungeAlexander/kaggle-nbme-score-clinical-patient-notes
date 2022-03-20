@@ -22,6 +22,9 @@ Commands are only re-run if their inputs have changed.
 | `preprocess` | Convert the data to spaCy's binary format |
 | `debug` | Debug the data |
 | `train` | Train a custom NER model |
+| `evaluate` | Evaluate the custom model and export metrics |
+| `package` | Package the trained model so it can be installed |
+| `serve` | Serve the models via a FastAPI REST API using the given host and port |
 
 ### ⏭ Workflows
 
@@ -32,7 +35,7 @@ inputs have changed.
 
 | Workflow | Steps |
 | --- | --- |
-| `all` | `preprocess` &rarr; `debug` &rarr; `train` |
+| `all` | `preprocess` &rarr; `train` &rarr; `evaluate` |
 
 ### 🗂 Assets
 
