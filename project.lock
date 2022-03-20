@@ -2,49 +2,49 @@ preprocess:
   cmd: python -m spacy run preprocess
   script:
     - python scripts/preprocess.py input/nbme-score-clinical-patient-notes corpus
-      0 0
+      --case-num -1 --feature-num -1
   deps:
     - path: input/nbme-score-clinical-patient-notes/train_split.json.gz
       md5: 37b4ef0a96a04634f50799fb7e64f609
     - path: scripts/preprocess.py
-      md5: 843939721a881dd133c82099677ae789
+      md5: 1818b044e5f12b008efc297fab16e13c
   outs:
-    - path: corpus/train-case_num-0-feature_num-0.spacy
-      md5: e8208417f3088e270934a2b8c2200a65
-    - path: corpus/dev-case_num-0-feature_num-0.spacy
-      md5: 66a74564788aa37d86adfc0cfd9bbb01
-    - path: corpus/test-case_num-0-feature_num-0.spacy
-      md5: bb15c856c1bac52f640f213f9ce2960c
+    - path: corpus/train-case_num--1-feature_num--1.spacy
+      md5: cf39a42f43dc42bf1299825656bb07f7
+    - path: corpus/dev-case_num--1-feature_num--1.spacy
+      md5: 5545c29be5984a88e6b2b4820d84dd11
+    - path: corpus/test-case_num--1-feature_num--1.spacy
+      md5: 3383b09327662e1d43a2159d04910e22
   spacy_version: 3.2.3
   spacy_git_version: 99425de36
 train:
   cmd: python -m spacy run train
   script:
-    - python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train-case_num-0-feature_num-0.spacy
-      --paths.dev corpus/dev-case_num-0-feature_num-0.spacy
+    - python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train-case_num--1-feature_num--1.spacy
+      --paths.dev corpus/dev-case_num--1-feature_num--1.spacy
   deps:
-    - path: corpus/train-case_num-0-feature_num-0.spacy
-      md5: e8208417f3088e270934a2b8c2200a65
-    - path: corpus/dev-case_num-0-feature_num-0.spacy
-      md5: 66a74564788aa37d86adfc0cfd9bbb01
+    - path: corpus/train-case_num--1-feature_num--1.spacy
+      md5: cf39a42f43dc42bf1299825656bb07f7
+    - path: corpus/dev-case_num--1-feature_num--1.spacy
+      md5: 5545c29be5984a88e6b2b4820d84dd11
   outs:
     - path: training/model-best
-      md5: 8e9275a1de0f9760f9e647478c5aa0fc
+      md5: 69347f52260b0a1b0ce9a73eeeac450a
   spacy_version: 3.2.3
   spacy_git_version: 99425de36
 evaluate:
   cmd: python -m spacy run evaluate
   script:
-    - python -m spacy evaluate training/model-best corpus/test-case_num-0-feature_num-0.spacy
+    - python -m spacy evaluate training/model-best corpus/test-case_num--1-feature_num--1.spacy
       --output training/metrics.json
   deps:
-    - path: corpus/test-case_num-0-feature_num-0.spacy
-      md5: bb15c856c1bac52f640f213f9ce2960c
+    - path: corpus/test-case_num--1-feature_num--1.spacy
+      md5: 3383b09327662e1d43a2159d04910e22
     - path: training/model-best
-      md5: 8e9275a1de0f9760f9e647478c5aa0fc
+      md5: 69347f52260b0a1b0ce9a73eeeac450a
   outs:
     - path: training/metrics.json
-      md5: 87ae9ecb25991452b1c3b96e08823e2b
+      md5: 5630521c815dbdf35fddf96b14691d72
   spacy_version: 3.2.3
   spacy_git_version: 99425de36
 package:
