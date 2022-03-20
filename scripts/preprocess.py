@@ -47,7 +47,7 @@ def df_to_doc_list(in_df: pd.DataFrame):
         for span in row.location:
             for start, end in span:
                 # NOTE: expand to spacy default tokenization
-                char_span = doc.char_span(start, end, alignment_mode="expand")
+                char_span = doc.char_span(start, end, alignment_mode="expand", label="nbme")
                 if char_span is None:
                     raise ValueError()
                 ents.append(char_span)
